@@ -1,8 +1,8 @@
-import { Categories, Home, Product, Products } from "../../screens";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform } from 'react-native';
 
-import { Platform } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { theme } from "../../constants";
+import { theme } from '../../constants';
+import { Categories, Products, Product, Home } from '../../screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,30 +12,22 @@ const MainNavigation = () => {
       initialRouteName="Home"
       screenOptions={{
         headerStyle: {
-          backgroundColor:
-            Platform.OS === "android" ? theme.colors.primary : "",
+          backgroundColor: Platform.OS === 'android' ? theme.colors.primary : '',
         },
-        headerTintColor:
-          Platform.OS === "android" ? "black" : theme.colors.primary,
+        headerTintColor: Platform.OS === 'android' ? 'black' : theme.colors.primary,
         headerTitleStyle: {
           fontFamily: theme.fontsFamily.header,
         },
-      }}
-    >
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{ title: "TU PANADERÌA" }}
-      />
-      <Stack.Screen
-        name="Categories"
-        component={Categories}
-        options={{ title: "Categorias" }}
-      />
+      }}>
+      <Stack.Screen name="Home" component={Home} options={{ title: 'Tu Panaderia' }} />
+      <Stack.Screen name="Categories" component={Categories} options={{ title: 'Categorias' }} />
       <Stack.Screen
         name="Products"
         component={Products}
-        options={({ route }) => ({ title: route.params.name })}
+        options={({ route }) => ({
+          title: route.params.name,
+          headerStyle: { backgroundColor: route.params.color },
+        })}
       />
       <Stack.Screen
         name="Product"

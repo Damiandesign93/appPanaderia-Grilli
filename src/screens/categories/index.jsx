@@ -1,24 +1,26 @@
-import { FlatList, Text, View } from "react-native";
+import React from 'react';
+import { View, Text, FlatList } from 'react-native';
 
-import { CATEGORIES } from "../../data/categories";
-import { GridItem } from "../../components/index";
-import React from "react";
-import { styles } from "./styles";
+import { styles } from './styles';
+import { CategoryItem } from '../../components/index';
+import { CATEGORIES } from '../../data/categories';
 
 const Categories = ({ navigation }) => {
   const handleSelectedCategory = (item) => {
-    navigation.navigate("Products", {
+    navigation.navigate('Products', {
       categoryID: item.id,
       name: item.name,
+      color: item.color,
     });
   };
 
   const renderGridItem = ({ item }) => (
-    <GridItem item={item} onSelected={handleSelectedCategory} />
+    <CategoryItem item={item} onSelected={handleSelectedCategory} />
   );
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>¿Que te gustaria Probar?</Text>
+      <Text style={styles.title}>Elija la categoria</Text>
       <FlatList
         data={CATEGORIES}
         keyExtractor={(item) => item.id}
